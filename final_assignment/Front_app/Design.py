@@ -11,81 +11,83 @@ class Main_frame:  # Creating Frame
     def __init__(self, root):
         self.root = root
         self.root.title('Home Page')
-        self.root.geometry('1540x790+0+0')
-        self.root.iconbitmap('icon.ico')
+        self.root.geometry('1540x790+0+0')  # Setting geometry of window
+        self.root.iconbitmap('Images/icon.ico')  # sets the icon of the window/frame widget to bitmap
 
-        image = Image.open("image.png")  # Inserting Background Image
+        image = Image.open("Images/image.png")  # Inserting Background Image
         self.photo = image.resize((1540, 799), Image.ANTIALIAS)
         self.photo = ImageTk.PhotoImage(self.photo)
         lbl = Label(root, image=self.photo, bg='black')
         lbl.image_ref = self.photo
         lbl.grid(row=0, column=0)
 
-        self.data = ImageTk.PhotoImage(Image.open('data.png'))  # Inserting Image for Product
+        self.data = ImageTk.PhotoImage(Image.open('Images/data.png'))  # Inserting Image for Product button
         lbl1 = Label(image=self.data)
-        lbl1.img = self.data
+        lbl1.img = self.data  # using image as label
 
-        product_btn = Button(root, image=self.data, command=self.entry)
+        product_btn = Button(root, image=self.data, command=self.entry)  # creating Button button
         product_btn.place(x=300, y=350)
 
-        self.customer = ImageTk.PhotoImage(Image.open('customer.png'))
+        self.customer = ImageTk.PhotoImage(Image.open('Images/customer.png'))  # Inserting image for Customer button
         lab2 = Label(image=self.customer)
         lab2.photo = self.customer
 
         customer_btn = Button(root, image=self.customer, command=self.signup)
         customer_btn.place(x=700, y=350)
 
-        self.shop = ImageTk.PhotoImage(Image.open('shop.png'))
+        self.shop = ImageTk.PhotoImage(Image.open('Images/shop.png'))  # Inserting image for Shop button
         lab3 = Label(image=self.shop)
         lab3.photo = self.shop
 
         shop_btn = Button(root, image=self.shop, command=self.shopping)
         shop_btn.place(x=1100, y=350)
 
-        Label(root, text='Sign Up', font=('arial', 16, 'bold'), width=10, bg='gray64').place(x=700, y=485)
-        Label(root, text='Data', font=('arial', 16, 'bold'), width=10, bg='gray64').place(x=300, y=485)
+        Label(root, text='Sign Up', font=('arial', 16, 'bold'), width=10, bg='gray64').place(x=700,
+                                                                                             y=485)
+        Label(root, text='Data', font=('arial', 16, 'bold'), width=10, bg='gray64').place(x=300,
+                                                                                          y=485)  # Inserting label
         Label(root, text='Shop', font=('arial', 16, 'bold'), width=10, bg='gray64').place(x=1100, y=485)
 
         btn_quit = Button(root, text='Exit Page', font=('arial', 15, 'bold'), width=10, bg='sky blue3', bd=4,
                           command=self.quit)
         btn_quit.place(x=1375, y=10, height=50, width=150)
 
-    def quit(self):
+    def quit(self):  # creating function for window exit
         message = messagebox.askyesno('Exit Application', 'Do you want to quit Application', icon='warning')
         if message:
             root.destroy()
 
-    def entry(self):
+    def entry(self):  # Creating new window
         wn = Toplevel()
         Login(wn)
-        self.root.withdraw()
+        self.root.withdraw()  # Removes previous window and redraw new window
 
-    def signup(self):
+    def signup(self):  # Creating new window
         wn = Toplevel()
         CustomerDetails(wn)
-        self.root.withdraw()
+        self.root.withdraw()  # Removes previous window and redraw new window
 
-    def shopping(self):
+    def shopping(self):  # Creating new window
         wn = Toplevel()
         Shop(wn)
-        self.root.withdraw()
+        self.root.withdraw()  # Removes previous window and redraw new window
 
 
-class Login:
+class Login:  # creating new class
     def __init__(self, root):
         self.root = root
         self.root.title('LOGIN')
-        self.root.geometry('400x196+600+200')
+        self.root.geometry('400x196+600+200')  # Setting geometry of window
         self.root.resizable(0, 0)
-        self.root.iconbitmap('icon.ico')
+        self.root.iconbitmap('Images/icon.ico')  # sets the icon of the window/frame widget to bitmap
 
-        self.id = StringVar()
+        self.id = StringVar()  # Setting Variable
         self.password = StringVar()
 
         heading = Label(self.root, text='Product Entry Page', bg='yellow', font=('arial', 17, 'bold'))
         heading.pack(side=TOP, fill=X)
 
-        main_frame = Frame(self.root, bg='pink')
+        main_frame = Frame(self.root, bg='pink')  # Creating frame
         main_frame.place(x=0, y=35, height=100, width=400)
 
         btn_frame = Frame(self.root, bg='cyan', relief=RIDGE, bd=10)
@@ -96,24 +98,24 @@ class Login:
         lbl_id.grid(row=0, column=0, padx=10, pady=10)
 
         self.ent_id = Entry(main_frame, textvariable=self.id, font=('arial', 12, 'bold'), relief=GROOVE, bd=5)
-        self.ent_id.grid(row=0, column=1, padx=10, pady=10)
+        self.ent_id.grid(row=0, column=1, padx=10, pady=10)  # Inserting Entry box
 
         lbl_pass = Label(main_frame, text='Password', bg='pink', font=('arial', 15, 'bold'), width=10)
         lbl_pass.grid(row=1, column=0, padx=10, pady=10)
 
         self.ent_pass = Entry(main_frame, textvariable=self.password, font=('arial', 12, 'bold'), relief=GROOVE, bd=5,
                               show='*')
-        self.ent_pass.grid(row=1, column=1, padx=10, pady=10)
+        self.ent_pass.grid(row=1, column=1, padx=10, pady=10)  # Placing entry box inside frame
 
         add_btn = Button(btn_frame, text='LOGIN', font=('arial', 10, 'bold'), command=self.add, width=35, bg='cyan', )
         add_btn.pack(pady=5)
 
-    def add(self):
+    def add(self):  # Function for checking username and password
         if str(self.password.get()) == str('admin') and str(self.id.get()) == str('admin'):
             messagebox.showinfo('welcome', 'Good to see you Back')
             self.product()
 
-        else:
+        else:  # Message box to display error
             messagebox.showwarning('Error', 'Either Password or ID is incorrect')
             self.main_frame()
 
@@ -131,30 +133,30 @@ class Login:
 class Second_frame:
     def __init__(self, root):
         self.root = root
-        root.title('Product Details')
+        root.title('Product Details')  # Adding title to window
         root.geometry('1540x790+0+0')
-        root.iconbitmap('icon.ico')
+        root.iconbitmap('Images/icon.ico')  # sets the icon of the window/frame widget to bitmap
 
-        image = Image.open('entry.jpg')
+        image = Image.open('Images/entry.jpg')
         image = image.resize((1540, 799), Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(image)
         lbl_image = Label(root, image=photo)
         lbl_image.my_image = photo
-        lbl_image.pack()
+        lbl_image.pack()  # Using Image as Label
 
         self.connection = Database()
 
-        self.name = StringVar()
+        self.name = StringVar()  # Using Variable
         self.code = StringVar()
         self.id = StringVar()
         self.cost = StringVar()
         self.content = StringVar()
         self.stock = StringVar()
 
-        data_frame = Frame(root, bg='orange4')
+        data_frame = Frame(root, bg='orange4')  # Creating Frame
         data_frame.place(x=20, y=20, height=740, width=505)
 
-        table_frame = Frame(root)
+        table_frame = Frame(root)  # Create Frame for table
         table_frame.place(x=600, y=90, height=650, width=900)
 
         product = Label(data_frame, text='Products Data Entry', font=('arial', 35, 'bold'), bg='orange4',
@@ -194,7 +196,7 @@ class Second_frame:
         product_des = Label(data_frame, text='Description', font=('arial', 14, 'bold'), bg='orange4', fg='snow')
         product_des.grid(row=6, column=0, padx=10, pady=20, sticky=N)
 
-        self.des = Text(data_frame, height=6, width=28, relief=GROOVE, bd=5)
+        self.des = Text(data_frame, height=6, width=28, relief=GROOVE, bd=5)  # Adding Text format
         self.des.grid(row=6, column=1, pady=20)
 
         product_stock = Label(data_frame, text='Stock Left', font=('arial', 14, 'bold'), bg='orange4', fg='snow')
@@ -234,18 +236,17 @@ class Second_frame:
                            command=self.order)
         btn_order.place(x=560, y=20, height=50)
 
-        scroll_x = Scrollbar(table_frame, orient=HORIZONTAL)
-        scroll_y = Scrollbar(table_frame, orient=VERTICAL)
+        scroll_x = Scrollbar(table_frame, orient=HORIZONTAL)  # Adding scrollbar Horizontally
+        scroll_y = Scrollbar(table_frame, orient=VERTICAL)  # Adding scrollbar Vertically
 
         self.product_table = ttk.Treeview(table_frame, columns=(
             'productid', 'productname', 'cost', 'describe', 'stock', 'discount', 'content', 'discountoffer',
-            'actualcont'),
-                                          xscrollcommand=scroll_x.set, yscrollcommand=scroll_y.set)
-        scroll_x.pack(side=BOTTOM, fill=X)
-        scroll_y.pack(side=RIGHT, fill=Y)
+            'actualcont'), xscrollcommand=scroll_x.set, yscrollcommand=scroll_y.set)  # Adding columns
+        scroll_x.pack(side=BOTTOM, fill=X)  # Placing scrollbar to Bottom side
+        scroll_y.pack(side=RIGHT, fill=Y)  # Placing scrollbar to Right side
         scroll_x.config(command=self.product_table.xview)
         scroll_y.config(command=self.product_table.yview)
-        self.product_table.heading('productid', text='Product ID')
+        self.product_table.heading('productid', text='Product ID')  # To define Heading on tree view
         self.product_table.heading('productname', text='Product Name')
         self.product_table.heading('cost', text='Cost')
         self.product_table.heading('describe', text='Description')
@@ -254,9 +255,9 @@ class Second_frame:
         self.product_table.heading('content', text='Content Code')
         self.product_table.heading('discountoffer', text='Discount%')
         self.product_table.heading('actualcont', text='Content')
-        self.product_table['show'] = 'headings'
+        self.product_table['show'] = 'headings'  # To show headings on tree view
 
-        self.product_table.column('productid', width=100)
+        self.product_table.column('productid', width=100)  # Providing width to columns
         self.product_table.column('productname', width=100)
         self.product_table.column('content', width=100)
         self.product_table.column('discount', width=100)
@@ -284,7 +285,7 @@ class Second_frame:
         CustomerOrder(wn)
         self.root.withdraw()
 
-    def quit(self):
+    def quit(self):  # Function to open next window
         if self.name.get() != '' or self.code.get() != '' or self.id.get() != '' or self.cost.get() != '' or self.content.get() != '' or self.des.get(
                 '1.0', END) != '' or self.stock.get() != '':
             message = messagebox.askyesno('Wait', 'Are you sure, You want to quit?')
@@ -293,11 +294,11 @@ class Second_frame:
                 Main_frame(wn)
                 self.root.withdraw()
 
-    def clear(self):
-        list = [self.cost, self.name,self.code,self.content,self.id,self.des,self.stock]
+    def clear(self):  # Function to delete values of entry box
+        list = [self.cost, self.name, self.code, self.content, self.id, self.des, self.stock]
         CustomerDetails.solution(list)
 
-    def show(self):
+    def show(self):  # Function to show values on tree view
         query = "select product_code,product_name,cost,description,stock,discount_code,content_code," \
                 "discount.discountoffer,content.content_name from product,discount,content where " \
                 "discount.dis_id=product.discount_code and product.content_code=content.content_id; "
@@ -307,7 +308,7 @@ class Second_frame:
             for row in rows:
                 self.product_table.insert('', END, values=row)
 
-    def add(self):
+    def add(self):  # Function to add product values
         if self.name.get() == '' or self.code.get() == '' or self.id.get() == '' or self.cost.get() == '' or self.content.get() == '' or self.des.get(
                 '1.0', END) == '' or self.stock.get() == '':
             messagebox.showinfo('Data Inserting', 'Please fill all the entries')
@@ -325,7 +326,7 @@ class Second_frame:
             self.clear()
             self.show()
 
-    def delete(self):
+    def delete(self):  # Function to delete product value
         message = messagebox.askyesno('Processing', 'Are you sure? ')
         if message:
             if self.code.get() == '':
@@ -340,7 +341,7 @@ class Second_frame:
                 messagebox.showinfo('Deleting Data', 'Data has been deleted')
                 self.show()
 
-    def update(self):
+    def update(self):  # Function to update Product values
         message = messagebox.askyesno('Processing', 'Are you sure? ')
         if message:
             if self.name.get() == '' or self.id.get() == '' or self.cost.get() == '' or self.content.get() == '' or self.des.get(
@@ -358,7 +359,7 @@ class Second_frame:
                 messagebox.showinfo('Data updating', 'Data has been updated')
                 self.show()
 
-    def get_data(self, ev):
+    def get_data(self, ev):  # Function to set value
         extract_data = self.product_table.focus()
         contents = self.product_table.item(extract_data)
         row = contents['values']
@@ -377,25 +378,25 @@ class CustomerDetails:
         self.root = root
         root.title('Customer Details')
         root.geometry('1540x790+0+0')
-        root.iconbitmap('icon.ico')
+        root.iconbitmap('Images/icon.ico')  # To insert icon of window widget to bitmap
 
-        image = Image.open('background.png')
+        image = Image.open('Images/background.png')  # To insert image
         image = image.resize((1540, 799), Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(image)
         lbl = Label(root, image=photo)
-        lbl.image = photo
+        lbl.image = photo  # To use image as Label
         lbl.pack()
 
-        self.first = StringVar()
+        self.first = StringVar()  # To make variable
         self.last = StringVar()
         self.age = StringVar()
         self.id = StringVar()
         self.email = StringVar()
         self.phone = StringVar()
 
-        self.connection = Database()
+        self.connection = Database()  # Connect to Database
 
-        entry_frame = Frame(root, bg='lavender')
+        entry_frame = Frame(root, bg='lavender')  # To create Frame
         entry_frame.place(x=20, y=50, height=660, width=500)
 
         Label(entry_frame, text='Create an Account', bg='lavender', fg='green2', font=('arial', 20, 'bold'),
@@ -429,7 +430,7 @@ class CustomerDetails:
         home_address.grid(row=5, column=0, padx=5, pady=10)
 
         self.home = Text(entry_frame, bd=3, relief=GROOVE, height=3, width=25, font=('arial', 12, ''))
-        self.home.grid(row=5, column=1, padx=5, pady=10)
+        self.home.grid(row=5, column=1, padx=5, pady=10)  # To add Text as entry box
 
         email = Label(entry_frame, text='Email', bg='lavender', font=('arial', 15, 'bold'))
         email.grid(row=6, column=0, padx=5, pady=10)
@@ -441,7 +442,7 @@ class CustomerDetails:
         delivery_address.grid(row=7, column=0, padx=5, pady=10)
 
         self.deliver = Text(entry_frame, bd=3, relief=GROOVE, height=3, width=25, font=('arial', 12, ''))
-        self.deliver.grid(row=7, column=1, padx=5, pady=10)
+        self.deliver.grid(row=7, column=1, padx=5, pady=10)  # To add Text as entry box
 
         phone = Label(entry_frame, text='Phone', bg='lavender', font=('arial', 15, 'bold'))
         phone.grid(row=8, column=0, padx=5, pady=10)
@@ -463,7 +464,7 @@ class CustomerDetails:
                        command=self.clear)
         clear.place(x=550, y=700)
 
-    def quit(self):
+    def quit(self):  # Function to change window
         if self.first.get() != '' or self.last.get() != '' or self.id.get() != '' or self.home.get('1.0', END) != '' or \
                 self.email.get() != '' or self.deliver.get('1.0',
                                                            END) != '' or self.phone.get() != '' or self.age.get() != '':
@@ -473,7 +474,7 @@ class CustomerDetails:
                 Main_frame(wn)
                 self.root.withdraw()
 
-    def add(self):
+    def add(self):  # Function to add Customer value
         if self.first.get() == '' or self.last.get() == '' or self.id.get() == '' or self.home.get('1.0', END) == '' or \
                 self.email.get() == '' or self.deliver.get('1.0',
                                                            END) == '' or self.phone.get() == '' or self.age.get() == '':
@@ -491,7 +492,7 @@ class CustomerDetails:
                                 'Your account has been created. \n Your ID and E-mail acts as your account '
                                 'IDENTITY.\n ID = ' + self.id.get() + " " + "E-mail = " + self.email.get())
 
-    def update(self):
+    def update(self):  # Function to update customer data
         message = messagebox.askyesno('Wait', 'Are you sure, You want to update all data except your ID',
                                       icon='warning')
         if message:
@@ -510,11 +511,11 @@ class CustomerDetails:
                 messagebox.showinfo('Data Updating', 'Your data has been updated')
                 self.clear()
 
-    def clear(self):
+    def clear(self):  # Function to clear entry box
         list = [self.first, self.last, self.id, self.email, self.age, self.phone, self.home, self.deliver]
         CustomerDetails.solution(list)
 
-    @classmethod
+    @classmethod  # Function to clear entry box from class method
     def solution(cls, list):
         for i in range(len(list)):
             if type(list[i]) == Text:
@@ -527,11 +528,11 @@ class CustomerDetails:
 class CustomerTable:
     def __init__(self, root):
         self.root = root
-        root.title('Customer Table')
+        root.title('Customer Table')  # to add title for window
         root.geometry('1540x790+0+0')
-        root.iconbitmap('icon.ico')
+        root.iconbitmap('Images/icon.ico')
 
-        image = Image.open('blur.png')
+        image = Image.open('Images/blur.png')
         image = image.resize((1540, 799), Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(image)
         lbl_image = Label(root, image=photo)
@@ -700,11 +701,11 @@ class DiscountContent:
         self.root = root
         root.title('Discount and Content')
         root.geometry('1540x790+0+0')
-        root.iconbitmap('icon.ico')
+        root.iconbitmap('Images/icon.ico')
 
         self.connection = Database()
 
-        image = Image.open("content.png")  # Inserting Background Image
+        image = Image.open("Images/content.png")  # Inserting Background Image
         self.photo = image.resize((1540, 799), Image.ANTIALIAS)
         self.photo = ImageTk.PhotoImage(self.photo)
         lbl = Label(root, image=self.photo, bg='black')
@@ -759,18 +760,18 @@ class DiscountContent:
         back = Button(root, text='Product Page', font=('arial', 15, 'bold'), bg='indian red1', command=self.product)
         back.place(x=1350, y=20)
 
-        table_discount_frame = Frame(root, bd=4)
+        table_discount_frame = Frame(root, bd=4)  # creating frame for Discount tree view
         table_discount_frame.place(x=600, y=200, width=300, height=400)
 
-        table_content_frame = Frame(root, bd=4)
+        table_content_frame = Frame(root, bd=4)  # creating frame for content tree view
         table_content_frame.place(x=1000, y=200, width=300, height=400)
 
         # for discount table
 
-        scroll_y = Scrollbar(table_discount_frame, orient=VERTICAL)
+        scroll_y = Scrollbar(table_discount_frame, orient=VERTICAL)  # Set scrollbar to vertical
 
         self.discount_data = ttk.Treeview(table_discount_frame, columns=('DiscountID', 'Discount'),
-                                          yscrollcommand=scroll_y.set)
+                                          yscrollcommand=scroll_y.set)  # columns for tree view
         scroll_y.pack(side=RIGHT, fill=Y)
         scroll_y.config(command=self.discount_data.yview)
 
@@ -834,7 +835,7 @@ class DiscountContent:
                                 command=self.update_content)
         update_con_but.place(x=1150, y=610)
 
-    def show_discount(self):
+    def show_discount(self):  # Show discount data to tree view
         query = 'select * from discount'
         values = self.connection.select(query)
 
@@ -843,7 +844,7 @@ class DiscountContent:
             for item in values:
                 self.discount_data.insert('', END, values=item)
 
-    def show_content(self):
+    def show_content(self):  # Show content data to tree view
         query = 'select * from content'
         values = self.connection.select(query)
 
@@ -852,8 +853,8 @@ class DiscountContent:
             for item in values:
                 self.content_data.insert('', END, values=item)
 
-    def clear(self):
-        list = [self.discount,self.content_id,self.content_id,self.content]
+    def clear(self): # To clear discount and content data
+        list = [self.discount, self.content_id, self.content_id, self.content]
         CustomerDetails.solution(list)
 
     def get_discount_data(self, ev):
@@ -870,7 +871,7 @@ class DiscountContent:
         self.content_id.set(row[0])
         self.content.set(row[1])
 
-    def add_content(self):
+    def add_content(self):  # Function to add content data of product
         if self.content_id.get() == '' or self.content.get() == '':
             messagebox.showinfo('Adding data', 'No values to Add')
         else:
@@ -882,7 +883,7 @@ class DiscountContent:
             self.show_content()
             self.clear()
 
-    def add_discount(self):
+    def add_discount(self):  # Function to add discount data of product
         if self.discount_id.get() == '' or self.discount.get() == '':
             messagebox.showinfo('Adding Discount', 'No data to Add')
         else:
@@ -894,7 +895,7 @@ class DiscountContent:
             self.show_discount()
             self.clear()
 
-    def delete_discount(self):
+    def delete_discount(self): # Function to delete discount data of product
         if self.discount_id.get() == '' or self.discount.get() == '':
             messagebox.showinfo('Deleting data', 'No data to Delete')
         query = "Delete from discount where dis_id=%s"
@@ -905,7 +906,7 @@ class DiscountContent:
         self.show_discount()
         self.clear()
 
-    def delete_content(self):
+    def delete_content(self):  # Function to delete content data of product
         if self.content_id.get() == '' or self.content.get() == '':
             messagebox.showinfo('Deleting data', 'No values to Delete')
         else:
@@ -917,7 +918,7 @@ class DiscountContent:
             self.show_content()
             self.clear()
 
-    def update_discount(self):
+    def update_discount(self):  # Function to update discount data of product
         if self.discount_id.get() == '' or self.discount.get() == '':
             messagebox.showinfo('Updating data', 'No values to Update')
         else:
@@ -929,7 +930,7 @@ class DiscountContent:
             self.show_discount()
             self.clear()
 
-    def update_content(self):
+    def update_content(self):  # Function to update content data of product
         if self.content_id.get() == '' or self.content.get() == '':
             messagebox.showinfo('Updating data', 'No values to Update')
         else:
@@ -952,9 +953,9 @@ class CustomerOrder:
         self.root = root
         root.title('Customer Order')
         root.geometry('1540x790+0+0')
-        root.iconbitmap('icon.ico')
+        root.iconbitmap('Images/icon.ico')
 
-        image = Image.open('order.jpg')
+        image = Image.open('Images/order.jpg')
         image = image.resize((1540, 799), Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(image)
         lbl_image = Label(root, image=photo)
@@ -1011,7 +1012,7 @@ class CustomerOrder:
         Button(small_frame, text='Reset', font=('arial', 10, 'bold'), bg='light sky blue1', width=10,
                command=self.show).place(x=780, y=20)
 
-        Button(root, text='Product Page', font=('arial', 15, 'bold'), bg='pale violet red1', width=11,
+        Button(root, text='Product Page', font=('arial', 15, 'bold'), bg='Skyblue2', width=11,
                command=self.product).place(x=1380, y=20)
 
         scroll_x = Scrollbar(table_frame, orient=HORIZONTAL)
@@ -1057,7 +1058,7 @@ class CustomerOrder:
         row = content['values']
         self.customer_id.set(row[1])
 
-    def update(self):
+    def update(self):  # to update delivery status of customer by admin
         if self.update_var.get() == '':
             messagebox.showinfo('Updating', 'No data to update')
         else:
@@ -1067,7 +1068,7 @@ class CustomerOrder:
             messagebox.showinfo('Data Updating', 'Delivery status has been updated')
             self.show()
 
-    def show(self):
+    def show(self):  # Function to show value to tree view
         query = "select order_id,customer.cus_Id,customer.first_name,customer.last_name,product.product_name," \
                 "customer_product.Quantity,product.cost,discount.discountoffer,customer.delivery_address," \
                 "customer_product.Status FROM customer_product,product,customer,discount where customer.cus_Id = " \
@@ -1079,7 +1080,7 @@ class CustomerOrder:
             for row in rows:
                 self.customer_table.insert('', END, values=row)
 
-    def search_value(self):
+    def search_value(self):  # Function to search value and display to tree view
         query = "select order_id,customer.cus_Id,customer.first_name,customer.last_name,product.product_name," \
                 "customer_product.Quantity,product.cost,discount.discountoffer,customer.delivery_address," \
                 "customer_product.Status FROM customer_product,product,customer,discount where customer.cus_Id = " \
@@ -1093,7 +1094,7 @@ class CustomerOrder:
             self.customer_table.insert('', END, values=row)
 
     def sort_values(self):
-        if self.combo_sort.get() == 'Customer ID':
+        if self.combo_sort.get() == 'Customer ID':  # to sort data according to ID
             query = "select order_id,customer.cus_Id,customer.first_name,customer.last_name,product.product_name," \
                     "customer_product.Quantity,product.cost,discount.discountoffer,customer.delivery_address," \
                     "customer_product.Status FROM customer_product,product,customer,discount where customer.cus_Id = " \
@@ -1105,7 +1106,7 @@ class CustomerOrder:
             self.customer_table.delete(*self.customer_table.get_children())
             for row in values:
                 self.customer_table.insert('', END, values=row)
-        elif self.combo_sort.get() == 'Discount':
+        elif self.combo_sort.get() == 'Discount':  # to sort data according to discount
             query = "select order_id,customer.cus_Id,customer.first_name,customer.last_name,product.product_name," \
                     "customer_product.Quantity,product.cost,discount.discountoffer,customer.delivery_address," \
                     "customer_product.Status FROM customer_product,product,customer,discount where customer.cus_Id = " \
@@ -1118,7 +1119,7 @@ class CustomerOrder:
             for row in values:
                 self.customer_table.insert('', END, values=row)
 
-        elif self.combo_sort.get() == 'Cost':
+        elif self.combo_sort.get() == 'Cost':  # to sort data according to cost
             query = "select order_id,customer.cus_Id,customer.first_name,customer.last_name,product.product_name," \
                     "customer_product.Quantity,product.cost,discount.discountoffer,customer.delivery_address," \
                     "customer_product.Status FROM customer_product,product,customer,discount where customer.cus_Id = " \
@@ -1154,9 +1155,9 @@ class Shop:
         self.root = root
         root.title('Shop')
         root.geometry('1540x790+0+0')
-        root.iconbitmap('icon.ico')
+        root.iconbitmap('Images/icon.ico')
 
-        image = Image.open('ShopOnline.jpg')
+        image = Image.open('Images/ShopOnline.jpg')
         image = image.resize((1540, 799), Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(image)
         lbl_image = Label(root, image=photo)
@@ -1198,6 +1199,9 @@ class Shop:
         self.product_code = StringVar()
         self.date = datetime.date.today()
         self.search_value = StringVar()
+        self.name = StringVar()
+        self.discount = StringVar()
+        self.cost = StringVar()
 
         id_ent = Entry(data_frame, font=('arial', 14, 'bold'), textvariable=self.id, width=15, bd=3)
         id_ent.place(x=200, y=20)
@@ -1258,10 +1262,12 @@ class Shop:
         self.shop_table.column('discountoffer', width=100)
         self.shop_table.column('actualcont', width=100)
         self.shop_table.pack(fill=BOTH, expand=1)
+        """When user clicks data from tree view, the function extract data from tree view 
+        and set values to variables  """
         self.shop_table.bind("<ButtonRelease-1>", self.get_data)
         self.show()
 
-    def show(self):
+    def show(self):  # Function to show data to tree view
         query = "select product_code,product_name,cost,description,stock,discount_code,content_code," \
                 "discount.discountoffer,content.content_name from product,discount,content where " \
                 "discount.dis_id=product.discount_code and product.content_code=content.content_id; "
@@ -1271,27 +1277,33 @@ class Shop:
             for row in rows:
                 self.shop_table.insert('', END, values=row)
 
-    def get_data(self, ev):
+    def get_data(self, ev):  # Function to set variable
         extract_data = self.shop_table.focus()
         contents = self.shop_table.item(extract_data)
         row = contents['values']
         self.product_code.set(row[0])
         self.max_quantity.set(row[4])
+        self.name.set(row[1])
+        self.discount.set(row[7])
+        self.cost.set(row[2])
 
-    def buy(self):
+    def buy(self):  # Function to buy item from tree view
         if self.id.get() == '' or self.mail.get() == '' or self.quantity.get() == '':
             messagebox.showwarning("Customer data", "Please fill entries")
-        elif self.quantity.get() > self.max_quantity.get():
+        elif self.quantity.get() > self.max_quantity.get(): # checks validation of quantity
             messagebox.showwarning("Stock", "Quantity is not enough. \n Buy less stock.")
         else:
-            message = messagebox.askyesno("Ordering", "Are you sure you want to buy")
+            message = messagebox.askyesno("Ordering", self.name.get() + ' cost ' + str(int(self.cost.get()) - (
+                    float(int(self.discount.get()) / 100) * int(
+                self.cost.get()))) + ' with discount ' + self.discount.get() + "%." + "\n Do you want to buy it?")
             if message:
                 query = "select email from customer where cus_Id=%s"
                 value = (self.id.get(),)
                 row = (self.connection.selectvalue(query, value))
                 print(self.mail.get(), row)
                 if self.mail.get() == (row[0][0]):
-                    query = "insert into customer_product (product_code, customer_Id, Quantity, order_date,Status) values(%s,%s,%s,%s,%s);"
+                    query = "insert into customer_product (product_code, customer_Id, Quantity, order_date,Status) " \
+                            "values(%s,%s,%s,%s,%s); "
                     shop_ref = Buy(self.id.get(), self.mail.get(), self.quantity.get(), self.product_code.get(),
                                    self.date)
                     values = (
@@ -1308,7 +1320,7 @@ class Shop:
                 else:
                     messagebox.showinfo('Wait', 'Need verified ID and Email')
 
-    def search_item(self):
+    def search_item(self):  # Function to search item and display to tree view
         query = "select product_code,product_name,cost,description,stock,discount_code,content_code," \
                 "discount.discountoffer,content.content_name from product,discount,content where " \
                 "discount.dis_id=product.discount_code and product.content_code=content.content_id; "
@@ -1322,7 +1334,7 @@ class Shop:
             for row in values:
                 self.shop_table.insert('', END, values=row)
 
-    def sort_values(self):
+    def sort_values(self):  # Function to sort values to tree view
         if self.combo.get() == 'Discount':
             query = "select product_code,product_name,cost,description,stock,discount_code,content_code," \
                     "discount.discountoffer,content.content_name from product,discount,content where " \
@@ -1355,21 +1367,21 @@ class Shop:
             for row in values:
                 self.shop_table.insert('', END, values=row)
 
-    def track_order(self):
+    def track_order(self):  # Function to track order of customer
         if self.id.get() == '':
-            messagebox.showinfo('Error', 'Need Verified ID and mail')
+            messagebox.showinfo('Error', 'Need Verified ID and mail')  # to check customer ID
         else:
             query = "select email from customer where cus_Id=%s"
             value = (self.id.get(),)
             row = (self.connection.selectvalue(query, value))
-            if self.mail.get() == (row[0][0]):
+            if self.mail.get() == (row[0][0]):  # To check email of customer
                 self.order()
             else:
                 messagebox.showinfo('Order', 'Need verified ID and Email')
 
-    def order(self):
+    def order(self):  # Function to open new window
         wn = Toplevel()
-        Order(wn, self.id.get())
+        Order(wn, self.id.get())  # to send value of id to another class
         self.root.withdraw()
 
     def home(self):
@@ -1380,13 +1392,13 @@ class Shop:
 
 class Order:
     def __init__(self, root, id):
-        self.customer_id = id
+        self.customer_id = id  # to set value of customer ID
         self.root = root
         root.title('Order List')
         root.geometry('1540x790+0+0')
-        root.iconbitmap('icon.ico')
+        root.iconbitmap('Images/icon.ico')
 
-        image = Image.open('ShopOnline.jpg')
+        image = Image.open('Images/ShopOnline.jpg')
         image = image.resize((1540, 799), Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(image)
         lbl_image = Label(root, image=photo)
@@ -1395,8 +1407,8 @@ class Order:
 
         self.connection = Database()
 
-        table_frame = Frame(root)
-        table_frame.place(x=200, y=90, height=300, width=1100)
+        table_frame = Frame(root)  # to create frame for tree view
+        table_frame.place(x=200, y=90, height=300, width=1100)  # to create frame for date entry
 
         data_frame = Frame(root, bd=3, bg='snow', relief=GROOVE)
         data_frame.place(x=520, y=400, height=200, width=550)
@@ -1404,7 +1416,7 @@ class Order:
         self.address = Text(data_frame, height=6, width=28, relief=GROOVE, bd=5)
         self.address.place(x=200, y=20)
 
-        self.id = StringVar()
+        self.id = StringVar()  # to set variable for ID
 
         address = Label(data_frame, text='Update Address', font=('arial', 14, 'bold'), width=12, bg='snow')
         address.place(x=20, y=60)
@@ -1414,18 +1426,17 @@ class Order:
         Button(root, text='Shop', font=('arial', 14, 'bold'), width=12, bg='snow', command=self.shop).place(x=1340,
                                                                                                             y=20)
 
-        scroll_x = Scrollbar(table_frame, orient=HORIZONTAL)
-        scroll_y = Scrollbar(table_frame, orient=VERTICAL)
+        scroll_x = Scrollbar(table_frame, orient=HORIZONTAL)  # to set scrollbar at horizontal
+        scroll_y = Scrollbar(table_frame, orient=VERTICAL)  # to set scrollbar at vertical
 
         self.shop_table = ttk.Treeview(table_frame, columns=(
             'customerid', 'name', 'last', 'code', 'date', 'quantity', 'productname', 'address', 'status', 'cost',
-            'discount'),
-                                       xscrollcommand=scroll_x.set, yscrollcommand=scroll_y.set)
+            'discount'), xscrollcommand=scroll_x.set, yscrollcommand=scroll_y.set) # to set columns for tree view
         scroll_x.pack(side=BOTTOM, fill=X)
         scroll_y.pack(side=RIGHT, fill=Y)
         scroll_x.config(command=self.shop_table.xview)
         scroll_y.config(command=self.shop_table.yview)
-        self.shop_table.heading('customerid', text='Customer ID')
+        self.shop_table.heading('customerid', text='Customer ID')  # to set heading of columns
         self.shop_table.heading('name', text='First Name')
         self.shop_table.heading('last', text='Last Name')
         self.shop_table.heading('code', text='Product Code')
@@ -1450,10 +1461,10 @@ class Order:
         self.shop_table.column('cost', width=100)
         self.shop_table.column('discount', width=100)
         self.shop_table.pack(fill=BOTH, expand=1)
-        self.shop_table.bind("<ButtonRelease-1>", self.get_data)
+        self.shop_table.bind("<ButtonRelease-1>", self.get_data)  # to get data from treeview
         self.show()
 
-    def show(self):
+    def show(self):  # Function to show data to tree view
         query = "select customer.cus_Id,customer.first_name,customer.last_name, customer_product.Product_code , " \
                 "customer_product.order_date,customer_product.Quantity, product.product_name, " \
                 "customer.delivery_address,customer_product.Status, product.cost,discount.discountoffer from " \
@@ -1467,13 +1478,13 @@ class Order:
             for row in rows:
                 self.shop_table.insert('', END, values=row)
 
-    def get_data(self, ev):
+    def get_data(self, ev):  # Function to get values from tree view
         extract_data = self.shop_table.focus()
         contents = self.shop_table.item(extract_data)
         row = contents['values']
         self.id.set(row[0])
 
-    def update(self):
+    def update(self):  # function to update delivery address of customer
         message = messagebox.askyesno('Processing', 'Are you sure? ')
         if message:
             if self.address.get('1.0', END) == '' or self.id.get() == '':
